@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Sacramento|Amatic+SC:700' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      a,
+      a:visited,
+      a:hover {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .wrapper {
+        display: table;
+        margin: auto;
+      }
+
+      .content {
+        vertical-align: middle;
+        margin: auto;
+      }
+
+      body {
+        font-family: 'Amatic SC', sans-serif;
+        text-align: center;
+        color: #fffff0;
+        background-color: #88d8b0;
+      }
+
+      header {
+        position: relative;
+        height: 100%;
+        width:100%;
+        font-size: 2.8em;
+      }
+      header>a {height:100%; width:100%;}
+
+      main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        font-size: 4em;
+      }
+
+      #quote {
+        padding: 3% 15%;
+      }
+
+      #authorCont {
+        margin-top: 1.5em;
+        padding-right: 1em;
+        text-align: right;
+        font-size: .7em;
+      }
+
+      #authorCont {
+        color: #929397;
+      }
+
+      footer {
+        font-size: 2em;
+        width: 75%;
+        margin: auto;
+        border-top: 2px solid #929397;
+        /*padding: 2em 0;*/
+        margin-top: 1em;
+      }
+
+      /* Sticky footer styles
+      -------------------------------------------------- */
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -125px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 125px;
+        color: white;
+        padding-top: 30px;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <header class="wrapper">
+          <h1>A verse A Day</h1>
+      </header>
+      <main id="main" class="wrapper">
+        <div>
+          <div id="quote" class="content">
+            <div id="textCont">
+            </div>
+            <div id="authorCont">
+            </div>
+          </div>
+        </div>
+      </main>
+      <div id="push"></div>
+    </div>
+    <footer id="footer">
+      <div>
+        <a href="https://github.com/juzten/ashtonspain.com">Code for this website</a>
+      </div>
+    </footer>
+    <script type="text/javascript">
+
+      window.myJsonpCallback = function(data) {
+          // handle requested data from server
+
+          var verse_data = data[0];
+          var verse = verse_data['verse'];
+          var text = verse_data['text'].replace(/<a\b[^>]*>(.*?)<\/a>/i,"");
+          var bookname = verse_data['bookname'];
+          var chapter = verse_data['chapter'];
+
+          var textContDiv = document.getElementById("textCont");
+          var textContent = document.createTextNode(text);
+          textContDiv.appendChild(textContent);
+
+          var authorContDiv = document.getElementById("authorCont");
+          var authorcontent = document.createTextNode(bookname + ' ' + chapter + ':' + verse);
+          authorContDiv.appendChild(authorcontent);
+
+      };
+
+      var scriptEl = document.createElement('script');
+      scriptEl.setAttribute('src',
+          'http://labs.bible.org/api/?passage=random&type=json&callback=myJsonpCallback');
+      document.body.appendChild(scriptEl);
+    </script>
+  </body>
+</html>
